@@ -1,0 +1,41 @@
+# Go WebSocket Deployment Configuration
+# Author: github@adhxabre
+# ---
+# This Configuration might not working properly on your
+# system, so feel free to modify it following your configuration
+
+apiVersion: go-websocket/v1
+kind: Deployment
+metadata:
+  name: { { include "go-websocket.fullname" . } }
+  labels:
+    app: { { include "go-websocket.name" . } }
+    chart: { { include "go-websocket.chart" . } }
+    release: { { .Release.Name } }
+    heritage: { { .Release.Service } }
+spec:
+  replicas: { { .Values.replicaCount } }
+  selector:
+    matchLabels:
+      app: { { include "go-websocket.name" . } }
+      release: { { .Release.Name } }
+    template:
+      metadata:
+        labels:
+          app: { { include "go-websocket.name" . } }
+          release: { { .Release.Name } }
+      spec:
+        containers:
+          - name: { { .Chart.Name } }
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: { { .Values.image.pullPolicy } }
+            ports:
+              - containerPort: 8080
+            env:
+              - name: GIN_MODE
+                value: { { .Values.env.GIN_MODE } }
+            command: ["./binary"]
+        volumes:
+          - name: go-websocket-volume
+            hostPath:
+              path: /app

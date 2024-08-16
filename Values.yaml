@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: go-websocket
+  tag: latest
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  port: 8080
+
+env:
+  GIN_MODE: release
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

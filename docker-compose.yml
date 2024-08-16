@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: golang_ws
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - GIN_MODE=release
+    command: ["/app/binary"]
