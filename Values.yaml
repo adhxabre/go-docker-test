@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: go-websocket
+  repository: gcr.io/btcw-development/go-websocket
   tag: latest
   pullPolicy: Never
 
@@ -11,7 +11,7 @@ apps:
   go-websocket:
     name: go-websocket
     container:
-      image: go-websocket
+      image: gcr.io/btcw-development/go-websocket
       tag: latest
       imagePullPolicy: Never
     port: 8080
