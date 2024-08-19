@@ -5,6 +5,28 @@ image:
   tag: latest
   pullPolicy: Never
 
+namespace: default
+
+apps:
+  go-websocket:
+    name: go-websocket
+    container:
+      image: go-websocket
+      tag: latest
+      imagePullPolicy: Never
+    port: 8080
+    resources:
+      limits:
+        cpu: 512m
+        memory: 1Gi
+      requests:
+        cpu: 256m
+        memory: 512Mi
+    service:
+      type: ClusterIP
+      port: 8080
+
+
 service:
   type: ClusterIP
   port: 8080

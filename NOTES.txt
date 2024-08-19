@@ -1,4 +1,10 @@
 {{- if .Values.service.type == "ClusterIP" }}
 1. Get the application URL by running these commands:
     export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "go-websocket.name" . }}" -o jsonpath="{.items[0].metadata.name}")
+    echo "Visit http://127.0.0.1:8080/ to use your application"
+    kubectl port-forward $POD_NAME 8080:8080
+{{- else if .Values.service.type == "LoadBalancer" }}
+1. Get the application URL by running these commands:
+    export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}' {{ include "my-go-app.fullname" . }})
+    echo http://$SERVICE_IP:8080
 {{- end }}
