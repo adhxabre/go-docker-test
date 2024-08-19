@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: gcr.io/btcw-development/go-websocket
   tag: latest
-  pullPolicy: Never
+  pullPolicy: ifNotPresent
 
 namespace: default
 
@@ -13,7 +13,7 @@ apps:
     container:
       image: gcr.io/btcw-development/go-websocket
       tag: latest
-      imagePullPolicy: Never
+      imagePullPolicy: ifNotPresent
     port: 8080
     resources:
       limits:
